@@ -44,8 +44,8 @@ public class Minion extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor FL = null;
     private DcMotor FR = null;
-    private DcMotor ML = null;
-    private DcMotor MR = null;
+   // private DcMotor ML = null;
+   // private DcMotor MR = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
 
@@ -59,8 +59,8 @@ public class Minion extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         FL  = hardwareMap.get(DcMotor.class, "FLDrive");
         FR = hardwareMap.get(DcMotor.class, "FRDrive");
-        ML = hardwareMap.get(DcMotor.class, "MLDrive");
-        MR = hardwareMap.get(DcMotor.class, "MRDrive");
+       // ML = hardwareMap.get(DcMotor.class, "MLDrive");
+        //MR = hardwareMap.get(DcMotor.class, "MRDrive");
         BL = hardwareMap.get(DcMotor.class, "BLDrive");
         BR = hardwareMap.get(DcMotor.class, "BRDrive");
 
@@ -68,8 +68,8 @@ public class Minion extends LinearOpMode {
         // Reverse the motor that runs backwards when connected directly to the battery
         FL.setDirection(DcMotor.Direction.FORWARD);
         FR.setDirection(DcMotor.Direction.REVERSE);
-        ML.setDirection(DcMotor.Direction.FORWARD);
-        MR.setDirection(DcMotor.Direction.REVERSE);
+        //ML.setDirection(DcMotor.Direction.FORWARD);
+        //MR.setDirection(DcMotor.Direction.REVERSE);
         BL.setDirection(DcMotor.Direction.FORWARD);
         BR.setDirection(DcMotor.Direction.REVERSE);
 
@@ -87,8 +87,8 @@ public class Minion extends LinearOpMode {
             // Tank Mode uses one stick to control each wheel.
             FL.setPower(leftPower);
             FR.setPower(rightPower);
-            ML.setPower(leftPower);
-            MR.setPower(rightPower);
+          //  ML.setPower(leftPower);
+            //MR.setPower(rightPower);
             BL.setPower(leftPower);
             BR.setPower(rightPower);
 
