@@ -38,8 +38,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="RegularOldDrivingFriend", group="Linear Opmode")
-public class Minion extends LinearOpMode {
+@TeleOp(name="SuperAwesomeDrivingFriend", group="Linear Opmode")
+public class SpaghettiSkateboard extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -67,12 +67,12 @@ public class Minion extends LinearOpMode {
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        FL.setDirection(DcMotor.Direction.REVERSE);
-        FR.setDirection(DcMotor.Direction.FORWARD);
-        ML.setDirection(DcMotor.Direction.REVERSE);
-        MR.setDirection(DcMotor.Direction.FORWARD);
-        BL.setDirection(DcMotor.Direction.REVERSE);
-        BR.setDirection(DcMotor.Direction.FORWARD);
+        FL.setDirection(DcMotor.Direction.FORWARD);
+        FR.setDirection(DcMotor.Direction.REVERSE);
+        ML.setDirection(DcMotor.Direction.FORWARD);
+        MR.setDirection(DcMotor.Direction.REVERSE);
+        BL.setDirection(DcMotor.Direction.FORWARD);
+        BR.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -82,8 +82,8 @@ public class Minion extends LinearOpMode {
         while (opModeIsActive()) {
 
             // Setup a variable for each drive wheel to save power level for telemetry
-            double leftPower = gamepad1.left_stick_y;
-            double rightPower = gamepad1.right_stick_y;
+            double leftPower = (gamepad1.right_stick_y - gamepad1.right_stick_x) / 2;
+            double rightPower = (gamepad1.right_stick_y + gamepad1.right_stick_x) / 2;
 
             // Tank Mode uses one stick to control each wheel.
             FL.setPower(leftPower);
