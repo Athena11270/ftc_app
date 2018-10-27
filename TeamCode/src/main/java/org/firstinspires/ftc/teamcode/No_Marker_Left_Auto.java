@@ -21,7 +21,6 @@
 // * Tested and found fully functional by Gabriel on 2018-8-4.
 // */
 //
-//@Disabled
 //@Autonomous(name = "Headingable Tank Rotation Autonomous", group = "sample")
 //
 //public class No_Marker_Left_Auto extends LinearOpMode {
@@ -48,18 +47,18 @@
 //     */
 //    @Override
 //    public void runOpMode() throws InterruptedException {   //Notice that this is almost the exact same code as in HeadingableOmniwheelRotationAutonomous and in HeadingableMecanumRotationAutonomous.
-//        FL = hardwareMap.get(DcMotor.class, "FL");
+////        FL = hardwareMap.get(DcMotor.class, "FL");
 //        ML = hardwareMap.get(DcMotor.class, "ML");
-//        BL = hardwareMap.get(DcMotor.class, "BL");
-//        FR = hardwareMap.get(DcMotor.class, "FR");
+////        BL = hardwareMap.get(DcMotor.class, "BL");
+////        FR = hardwareMap.get(DcMotor.class, "FR");
 //        MR = hardwareMap.get(DcMotor.class, "MR");
-//        BR = hardwareMap.get(DcMotor.class, "BR");
-//        FL.setDirection(DcMotor.Direction.FORWARD);
-//        FR.setDirection(DcMotor.Direction.REVERSE);
+////        BR = hardwareMap.get(DcMotor.class, "BR");
+////        FL.setDirection(DcMotor.Direction.FORWARD);
+////        FR.setDirection(DcMotor.Direction.REVERSE);
 //        ML.setDirection(DcMotor.Direction.FORWARD);
 //        MR.setDirection(DcMotor.Direction.REVERSE);
-//        BL.setDirection(DcMotor.Direction.FORWARD);
-//        BR.setDirection(DcMotor.Direction.REVERSE);
+////        BL.setDirection(DcMotor.Direction.FORWARD);
+////        BR.setDirection(DcMotor.Direction.REVERSE);
 //
 //        imu = hardwareMap.get(BNO055IMUImpl.class, "imu");
 //        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -77,19 +76,12 @@
 //        pid.setMaxErrorForIntegral(0.002);
 //
 //        controller = new FinishableIntegratedController(new IntegratingGyroscopeSensor(imu), pid, new ErrorTimeThresholdFinishingAlgorithm(Math.PI/50, 1));
-//        drivetrain = new HeadingableTankDrivetrain(new DcMotor[]{FL, ML, BL, FR, MR, BR}, controller);
+//        //drivetrain = new HeadingableTankDrivetrain(new DcMotor[]{FL, ML, BL, FR, MR, BR}, controller);
+//        drivetrain = new HeadingableTankDrivetrain(ML, MR, controller);
 //        for (DcMotor motor : drivetrain.motors) motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //
 //        waitForStart();
 //
-////        drivetrain.setTargetHeading(Math.PI/2);
-////        while (drivetrain.isRotating()) {
-////            drivetrain.updateHeading();
-////            doTelemetry();
-////        }
-////        //drivetrain.rotate();
-////        sleep(1000);
-////
 ////        drivetrain.setTargetHeading(-Math.PI/2);
 ////        while (drivetrain.isRotating()) {
 ////            drivetrain.updateHeading();
@@ -100,13 +92,18 @@
 ////
 ////        drivetrain.setTargetHeading(0);
 ////        while (opModeIsActive()) drivetrain.updateHeading();
+//
+//        double driveDistance = drivetrain.getTicksPerUnit()*2;
+//        telemetry.addData("Drive Distance",driveDistance);
+//        telemetry.addData("Pi", Math.PI);
+//        telemetry.update();
 ////
-////        drivetrain.setTargetHeading(-Math.PI/2);
-////        drivetrain.rotate();
-////        drivetrain.setVelocity(0.5);
-////        drivetrain.setTargetPosition(driveDistance);
-////        drivetrain.position();
-////        drivetrain.setVelocity(0);
+//        drivetrain.setTargetHeading(-Math.PI/2);
+//        drivetrain.rotate();
+//        drivetrain.setVelocity(0.5);
+//        drivetrain.setTargetPosition(driveDistance);
+//        drivetrain.position();
+//        drivetrain.setVelocity(0);
 ////
 ////        drivetrain.setTargetHeading(-Math.PI);
 ////        drivetrain.rotate();
@@ -128,7 +125,7 @@
 ////        drivetrain.setTargetPosition(-driveDistance);
 ////        drivetrain.position();
 ////        drivetrain.setVelocity(0);
-//    }
+//}
 //
 //    void doTelemetry() {
 //        PIDController pid = (PIDController) drivetrain.controller.algorithm;
