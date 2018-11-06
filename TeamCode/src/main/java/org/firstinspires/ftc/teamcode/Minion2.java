@@ -29,17 +29,13 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="RegularOldDrivingFriend", group="Linear Opmode")
-public class Minion extends LinearOpMode {
+public class Minion2 extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -49,6 +45,7 @@ public class Minion extends LinearOpMode {
     private DcMotor MR = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
+
 
     @Override
     public void runOpMode() {
@@ -79,23 +76,30 @@ public class Minion extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
-            // Setup a variable for each drive wheel to save power level for telemetry
-            double leftPower = gamepad1.left_stick_y;
-            double rightPower = gamepad1.right_stick_y;
-
-            // Tank Mode uses one stick to control each wheel.
-            FL.setPower(leftPower);
-            FR.setPower(rightPower);
-            ML.setPower(leftPower);
-            MR.setPower(rightPower);
-            BL.setPower(leftPower);
-            BR.setPower(rightPower);
+            if (gamepad1.left_trigger > 10) {
+                Drive (gamepad1.left_stick_y / 1,gamepad1.right_stick_y / 1);
+            }
+            else if (gamepad1.right_trigger > 10) {
+                Drive (gamepad1.left_stick_y / 4,gamepad1.right_stick_y / 4);
+            }
+            else Drive (gamepad1.left_stick_y / 2,gamepad1.right_stick_y / 2);
+        }
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "FL (%.2f), FR (%.2f)", leftPower, rightPower);
             telemetry.update();
         }
+
+    void Drive(double leftPower, double rightPower) {
+
+        leftPower *= 0.8625;
+
+        FL.setPower(leftPower);
+        FR.setPower(rightPower);
+        ML.setPower(leftPower);
+        MR.setPower(rightPower);
+        BL.setPower(leftPower);
+        BR.setPower(rightPower);
     }
+
 }

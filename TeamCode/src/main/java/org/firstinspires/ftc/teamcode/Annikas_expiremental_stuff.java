@@ -29,17 +29,14 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="RegularOldDrivingFriend", group="Linear Opmode")
-public class Minion extends LinearOpMode {
+@Autonomous(name="No Marker Left", group="Linear Opmode")
+public class Annikas_expiremental_stuff extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -50,6 +47,7 @@ public class Minion extends LinearOpMode {
     private DcMotor BL = null;
     private DcMotor BR = null;
 
+@Disabled
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -64,38 +62,54 @@ public class Minion extends LinearOpMode {
         BL = hardwareMap.get(DcMotor.class, "BL");
         BR = hardwareMap.get(DcMotor.class, "BR");
 
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-        FL.setDirection(DcMotor.Direction.FORWARD);
-        FR.setDirection(DcMotor.Direction.REVERSE);
-        ML.setDirection(DcMotor.Direction.FORWARD);
-        MR.setDirection(DcMotor.Direction.REVERSE);
-        BL.setDirection(DcMotor.Direction.FORWARD);
-        BR.setDirection(DcMotor.Direction.REVERSE);
+        FL.setDirection(DcMotor.Direction.REVERSE);
+        FR.setDirection(DcMotor.Direction.FORWARD);
+        ML.setDirection(DcMotor.Direction.REVERSE);
+        MR.setDirection(DcMotor.Direction.FORWARD);
+        BL.setDirection(DcMotor.Direction.REVERSE);
+        BR.setDirection(DcMotor.Direction.FORWARD);
+        FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ML.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        MR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ML.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        MR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ML.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        MR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
+        Drive(1,1);
+        sleep(3000);
+        Drive(0,0);
 
-            // Setup a variable for each drive wheel to save power level for telemetry
-            double leftPower = gamepad1.left_stick_y;
-            double rightPower = gamepad1.right_stick_y;
 
-            // Tank Mode uses one stick to control each wheel.
-            FL.setPower(leftPower);
-            FR.setPower(rightPower);
-            ML.setPower(leftPower);
-            MR.setPower(rightPower);
-            BL.setPower(leftPower);
-            BR.setPower(rightPower);
 
-            // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "FL (%.2f), FR (%.2f)", leftPower, rightPower);
-            telemetry.update();
-        }
+        // Show the elapsed game time and wheel power.
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        //telemetry.addData("Motors", "FL (%.2f), FR (%.2f)", leftPower, rightPower);
+        telemetry.update();
+    }
+
+    public void Drive(double leftPower, double rightPower) {
+
+        leftPower *= 0.8625;
+
+        FL.setPower(leftPower);
+        FR.setPower(rightPower);
+        ML.setPower(leftPower);
+        MR.setPower(rightPower);
+        BL.setPower(leftPower);
+        BR.setPower(rightPower);
     }
 }

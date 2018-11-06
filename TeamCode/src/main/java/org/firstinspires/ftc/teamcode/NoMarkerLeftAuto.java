@@ -82,7 +82,7 @@ public class NoMarkerLeftAuto extends LinearOpMode {
         waitForStart();
 
         Drive(1,1);
-        sleep(3000);
+        sleep(1000);
         Drive(0,0);
 
 
