@@ -32,7 +32,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -48,28 +52,24 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  *
  *    - This example is for the robot named Suspect, built by Astrid and Ari in 45 min
  */
-public class RhapsodyTheRobot
+public class SuspectTheRobot
 {
     // declare hardware imu, motors, servos, sensors
     BNO055IMU imu;
     private DcMotor FL = null;
     private DcMotor FR = null;
-    private DcMotor ML = null;
-    private DcMotor MR = null;
-    private DcMotor BL = null;
-    private DcMotor BR = null;
 
     // create arrays for your motors (change sizes to match YOUR number of motors)
-    private DcMotor[] LeftMotors = new DcMotor[3];
-    private DcMotor[] RightMotors = new DcMotor[3];
-    private DcMotor[] AllMotors = new DcMotor[6];
+    private DcMotor[] LeftMotors = new DcMotor[1];
+    private DcMotor[] RightMotors = new DcMotor[1];
+    private DcMotor[] AllMotors = new DcMotor[2];
 
     // you will need a reference to your OpMode
     private LinearOpMode OpModeReference;
 
     // define and calculate constants...
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // REV Hex HD 40:1
-    static final double     WHEEL_DIAMETER_INCHES   = 4;     // For figuring circumference
+    static final double     WHEEL_DIAMETER_INCHES   = 3.54331;     // For figuring circumference
     static final double     WHEEL_CIRCUMFERENCE_INCHES = WHEEL_DIAMETER_INCHES * Math.PI;
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV  / WHEEL_CIRCUMFERENCE_INCHES);
 
@@ -77,14 +77,14 @@ public class RhapsodyTheRobot
     // from your OpMode, you'll have to pass a reference to the OpMode as the parameter
     // Will look like this:
     //      SuspectTheRobot robot = new SuspectTheRobot(this);
-    public RhapsodyTheRobot(LinearOpMode opMode) {
+    public SuspectTheRobot(LinearOpMode opMode) {
         OpModeReference = opMode;
     }
 
     // This is a method for all of the initialization code - all of the
     // stuff that happens after clicking the Initialize button, but before
     // clicking the start button.
-    public void Initialize() {
+    public void init() {
 
         // this is the IMU crap...just...accept it.
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -97,12 +97,8 @@ public class RhapsodyTheRobot
 
         // get all your hardware from the hardware map
         // defined in the config on your robot controller phone.
-        FL = OpModeReference.hardwareMap.get(DcMotor.class, "FL");
-        FR = OpModeReference.hardwareMap.get(DcMotor.class, "FR");
-        ML = OpModeReference.hardwareMap.get(DcMotor.class, "ML");
-        MR = OpModeReference.hardwareMap.get(DcMotor.class, "MR");
-        BL = OpModeReference.hardwareMap.get(DcMotor.class, "BL");
-        BR = OpModeReference.hardwareMap.get(DcMotor.class, "BR");
+        FL = OpModeReference.hardwareMap.get(DcMotor.class, "ML");
+        FR = OpModeReference.hardwareMap.get(DcMotor.class, "MR");
         imu = OpModeReference.hardwareMap.get(BNO055IMU.class, "imu");
 
         // initialize the IMU
@@ -111,19 +107,11 @@ public class RhapsodyTheRobot
         // now add each motor to your motor arrays (this example only has 2 motors)
         // left
         LeftMotors[0] = FL;
-        LeftMotors[1] = ML;
-        LeftMotors[2] = BL;
         // right
         RightMotors[0] = FR;
-        RightMotors[1] = MR;
-        RightMotors[2] = BR;
         // all
         AllMotors[0] = FL;
         AllMotors[1] = FR;
-        AllMotors[2] = ML;
-        AllMotors[3] = MR;
-        AllMotors[4] = BL;
-        AllMotors[5] = BR;
 
         // set the direction for all left, then all right motors
         for (DcMotor m : LeftMotors)
@@ -170,7 +158,7 @@ public class RhapsodyTheRobot
 
             // just keep looping while both motors are busy
             // stop if driver station stop button pushed
-            while (OpModeReference.opModeIsActive() && ((FL.isBusy() && FR.isBusy()) && ((ML.isBusy() && MR.isBusy()) && (BL.isBusy() && BR.isBusy())))) {
+            while (OpModeReference.opModeIsActive() && (FL.isBusy() && FR.isBusy())) {
                 OpModeReference.telemetry.addData("target ticks", targetTicks);
                 OpModeReference.telemetry.addData("right current", FR.getCurrentPosition());
                 OpModeReference.telemetry.addData("left current", FL.getCurrentPosition());
@@ -258,8 +246,8 @@ public class RhapsodyTheRobot
 
                 OpModeReference.telemetry.addData("target", targetAngleDifference);
                 OpModeReference.telemetry.addData("current", GetAngleDifference(startAngle));
-                OpModeReference.telemetry.addData("LeftMotorPower", ML.getPower());
-                OpModeReference.telemetry.addData("RightMotorPower", MR.getPower());
+                OpModeReference.telemetry.addData("LeftMotorPower", FL.getPower());
+                OpModeReference.telemetry.addData("RightMotorPower", FR.getPower());
                 OpModeReference.telemetry.update();
             }
         // if targetAngleDifference is Positive, we're turning LEFT

@@ -14,13 +14,13 @@
 //
 //public class TestOpMode extends OpMode {
 //    /**
-//     * User defined init method
+//     * User defined Initialize method
 //     * <p>
 //     * This method will be called once when the INIT button is pressed.
 //     */
 //    @Override
-//    public void init() {
-//        telemetry.addData("test in init", TestClass.test());
+//    public void Initialize() {
+//        telemetry.addData("test in Initialize", TestClass.test());
 //    }
 //
 //    /**

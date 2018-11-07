@@ -38,7 +38,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="RegularOldDrivingFriend", group="Linear Opmode")
+@TeleOp(name="RegularOldDriverFriend", group="Linear Opmode")
 public class Minion extends LinearOpMode {
 
     // Declare OpMode members.
