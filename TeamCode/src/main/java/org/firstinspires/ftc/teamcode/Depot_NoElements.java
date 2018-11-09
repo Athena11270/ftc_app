@@ -68,23 +68,32 @@ public class Depot_NoElements extends LinearOpMode {
         // sleeps are not required
         // -------------------------------------------------------------------------------
 
-        //Drive forward to just before sample resources
-        rhaps.Drive(0.3,16.5);
+        //drive forward to just before sample resources
+        rhaps.drive(0.3,16.5);
 
-        //Turn 90 degrees counterclockwise
-        rhaps.Turn(90,0.3);
+        //turn 90 degrees counterclockwise
+        rhaps.turn(85,0.3);
 
-        //Drive forward to center-ish region of side bit
-        rhaps.Drive(0.3,33);
+        //drive forward to center-ish region of side bit
+        rhaps.drive(0.3,33);
 
-        //Turn 90 degrees clockwise to face depot
-        rhaps.Turn(-45,0.3);
+        //turn right a little
+        rhaps.turn(-40,0.3);
 
-        //Drive forward to depot, deposit Kyle-Owl-Thing
+        //go to the center of this region
+        rhaps.drive(0.3,16.5);
 
+        //turn 90 degrees clockwise to face depot
+        rhaps.turn(-85,0.3);
 
-        //Back up until wheel touches crater side
+        //drive forward to depot, deposit Kyle-Owl-Thing
+        rhaps.drive(0.3,46+(2/3));
 
+        //turn around
+        rhaps.turn(175,0.3);
+
+        //go until wheel touches crater side
+        rhaps.drive(0.3,70);
 
         rhaps.StopDriving();
     }

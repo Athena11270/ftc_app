@@ -291,7 +291,7 @@ public class SuspectTheRobot
             return;
         }
 
-        // Turn all motors off
+        // turn all motors off
         StopDriving();
     }
  }

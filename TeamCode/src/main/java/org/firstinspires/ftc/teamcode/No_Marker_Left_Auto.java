@@ -94,7 +94,7 @@ public class No_Marker_Left_Auto extends LinearOpMode {
 //        while (opModeIsActive()) drivetrain.updateHeading();
 
         double driveDistance = drivetrain.getTicksPerUnit()*2;
-        telemetry.addData("Drive Distance",driveDistance);
+        telemetry.addData("drive Distance",driveDistance);
         telemetry.addData("Pi", Math.PI);
         telemetry.update();
 //

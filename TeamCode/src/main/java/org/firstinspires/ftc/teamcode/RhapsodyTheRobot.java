@@ -143,10 +143,29 @@ public class RhapsodyTheRobot
         for (DcMotor m : AllMotors)
             m.setPower(0);
     }
-
+    public void motorspeed (double leftspeed, double rightspeed, boolean slowcondition, boolean fastcondition) {
+        if (fastcondition) {
+            for (DcMotor l : LeftMotors)
+                l.setPower(leftspeed);
+            for (DcMotor r : RightMotors)
+                r.setPower(rightspeed);
+        }
+        else if (slowcondition) {
+            for (DcMotor l : LeftMotors)
+                l.setPower(0.15 * leftspeed);
+            for (DcMotor r : RightMotors)
+                r.setPower(0.15 * rightspeed);
+        }
+        else {
+            for (DcMotor l : LeftMotors)
+                l.setPower(0.5 * leftspeed);
+            for (DcMotor r : RightMotors)
+                r.setPower(0.5 * rightspeed);
+        }
+    }
     // this is a drive method - takes speed and inches
     // WARNING: YOU WILL NEED TO IMPLEMENT REVERSE
-    public void Drive(double speed, double inches) {
+    public void drive(double speed, double inches) {
         // Ensure that the opmode is still active
         if (OpModeReference.opModeIsActive()) {
 
@@ -215,7 +234,7 @@ public class RhapsodyTheRobot
     // DO NOT try to turn more than 180 degrees in either direction
     // targetAngleDifference is the number of degrees you want to turn
     // should be positive if turning left, negative if turning right
-    public void Turn(double targetAngleDifference, double power) {
+    public void turn(double targetAngleDifference, double power) {
 
         // before starting the turn, take note of current angle as startAngle
         double startAngle = GetCurrentZAngle();
@@ -303,7 +322,7 @@ public class RhapsodyTheRobot
             return;
         }
 
-        // Turn all motors off
+        // turn all motors off
         StopDriving();
     }
  }

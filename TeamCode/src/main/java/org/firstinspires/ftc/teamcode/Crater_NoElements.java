@@ -38,8 +38,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 /**
  * This is an OpMode that uses a hardware robot class
  */
-@Autonomous(name = "IMU_Auto_MK1c", group = "IMU1")
-public class IMU_Auto_MK1c extends LinearOpMode {
+@Autonomous(name = "Crater_NoElements", group = "IMU1")
+public class Crater_NoElements extends LinearOpMode {
 
     // this is the motor power so when you make changes you can just make here
     // feel free to define multiple like FULL_POWER, HALF_POWER, etc.
@@ -50,10 +50,10 @@ public class IMU_Auto_MK1c extends LinearOpMode {
 
         // -------------------------------------------------------------------------------
         // create an instance of the hardware robot class, pass an instance of THIS OpMode
-        SuspectTheRobot robot = new SuspectTheRobot(this);
+        RhapsodyTheRobot rhaps = new RhapsodyTheRobot(this);
 
         // call the initialization method
-        robot.init();
+        rhaps.Initialize();
 
         // -------------------------------------------------------------------------------
         // Wait until the start button is clicked!
@@ -61,36 +61,35 @@ public class IMU_Auto_MK1c extends LinearOpMode {
 
         // -------------------------------------------------------------------------------
         // Start the logging of measured acceleration
-        robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+        rhaps.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
         // -------------------------------------------------------------------------------
         // now do all of your driving and claiming depots and getting off landers or whatever
         // sleeps are not required
         // -------------------------------------------------------------------------------
 
-        // drive forward about 24 inches
-        robot.Drive(DRIVE_SPEED, 24);
-        sleep(1000);
+        //drive forward to just before sample resources
+        rhaps.drive(0.3,16.5);
 
-        // turn LEFT 90 degrees
-        robot.Turn(90, DRIVE_SPEED);
-        sleep(1000);
+        //turn 90 degrees counterclockwise
+        rhaps.turn(85,0.3);
 
-        // drive forward about 12 inches
-        robot.Drive(DRIVE_SPEED, 12);
-        sleep(1000);
+        //drive forward to center-ish region of side bit
+        rhaps.drive(0.3,49.5);
 
-        // turn LEFT 90 degrees
-        robot.Turn(90, DRIVE_SPEED);
-        sleep(1000);
+        //turn left a little
+        rhaps.turn(40,0.3);
 
-        // drive forward about 24 inches
-        robot.Drive(DRIVE_SPEED, 24);
-        sleep(1000);
+        //go to the depot
+        rhaps.drive(0.3,35);
 
-        // turn RIGHT 90 degrees
-        robot.Turn(-90, DRIVE_SPEED);
+        //turn around
+        rhaps.turn(175,0.3);
 
-        robot.StopDriving();
+        //go to the crater
+        rhaps.drive(0.3,70);
+
+
+        rhaps.StopDriving();
     }
 }

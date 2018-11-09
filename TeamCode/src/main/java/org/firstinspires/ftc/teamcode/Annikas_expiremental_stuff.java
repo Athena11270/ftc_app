@@ -89,9 +89,9 @@
 //
 //        waitForStart();
 //
-//        Drive(1,1);
+//        drive(1,1);
 //        sleep(3000);
-//        Drive(0,0);
+//        drive(0,0);
 //
 //
 //
@@ -101,7 +101,7 @@
 //        telemetry.update();
 //    }
 //
-//    public void Drive(double leftPower, double rightPower) {
+//    public void drive(double leftPower, double rightPower) {
 //
 //        leftPower *= 0.8625;
 //

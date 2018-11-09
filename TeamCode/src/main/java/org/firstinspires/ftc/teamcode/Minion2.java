@@ -34,72 +34,27 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="RegularOldDrivingFriend", group="Linear Opmode")
+@TeleOp(name="Tank Drive", group="Linear Opmode")
 public class Minion2 extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor FL = null;
-    private DcMotor FR = null;
-    private DcMotor ML = null;
-    private DcMotor MR = null;
-    private DcMotor BL = null;
-    private DcMotor BR = null;
-
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-        FL = hardwareMap.get(DcMotor.class, "FL");
-        FR = hardwareMap.get(DcMotor.class, "FR");
-        ML = hardwareMap.get(DcMotor.class, "ML");
-        MR = hardwareMap.get(DcMotor.class, "MR");
-        BL = hardwareMap.get(DcMotor.class, "BL");
-        BR = hardwareMap.get(DcMotor.class, "BR");
+        RhapsodyTheRobot rhaps = new RhapsodyTheRobot(this);
+        rhaps.Initialize();
 
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-        FL.setDirection(DcMotor.Direction.FORWARD);
-        FR.setDirection(DcMotor.Direction.REVERSE);
-        ML.setDirection(DcMotor.Direction.FORWARD);
-        MR.setDirection(DcMotor.Direction.REVERSE);
-        BL.setDirection(DcMotor.Direction.FORWARD);
-        BR.setDirection(DcMotor.Direction.REVERSE);
-
-        // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            if (gamepad1.left_trigger > 10) {
-                Drive (gamepad1.left_stick_y / 1,gamepad1.right_stick_y / 1);
-            }
-            else if (gamepad1.right_trigger > 10) {
-                Drive (gamepad1.left_stick_y / 4,gamepad1.right_stick_y / 4);
-            }
-            else Drive (gamepad1.left_stick_y / 2,gamepad1.right_stick_y / 2);
+        rhaps.motorspeed(-gamepad1.right_stick_y, -gamepad1.left_stick_y,gamepad1.left_bumper,gamepad1.right_bumper);
         }
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
         }
-
-    void Drive(double leftPower, double rightPower) {
-
-        leftPower *= 0.8625;
-
-        FL.setPower(leftPower);
-        FR.setPower(rightPower);
-        ML.setPower(leftPower);
-        MR.setPower(rightPower);
-        BL.setPower(leftPower);
-        BR.setPower(rightPower);
-    }
-
 }
