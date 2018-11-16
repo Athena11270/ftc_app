@@ -52,17 +52,18 @@ public class RhapsodyTheRobot
 {
     // declare hardware imu, motors, servos, sensors
     BNO055IMU imu;
-    private DcMotor FL = null;
-    private DcMotor FR = null;
-    private DcMotor ML = null;
-    private DcMotor MR = null;
-    private DcMotor BL = null;
-    private DcMotor BR = null;
+    public DcMotor FL = null;
+    public DcMotor FR = null;
+    public DcMotor ML = null;
+    public DcMotor MR = null;
+    public DcMotor BL = null;
+    public DcMotor BR = null;
+    public DcMotor BP = null;
 
     // create arrays for your motors (change sizes to match YOUR number of motors)
-    private DcMotor[] LeftMotors = new DcMotor[3];
-    private DcMotor[] RightMotors = new DcMotor[3];
-    private DcMotor[] AllMotors = new DcMotor[6];
+    public DcMotor[] LeftMotors = new DcMotor[3];
+    public DcMotor[] RightMotors = new DcMotor[3];
+    public DcMotor[] AllMotors = new DcMotor[7];
 
     // you will need a reference to your OpMode
     private LinearOpMode OpModeReference;
@@ -103,6 +104,7 @@ public class RhapsodyTheRobot
         MR = OpModeReference.hardwareMap.get(DcMotor.class, "MR");
         BL = OpModeReference.hardwareMap.get(DcMotor.class, "BL");
         BR = OpModeReference.hardwareMap.get(DcMotor.class, "BR");
+        BP = OpModeReference.hardwareMap.get(DcMotor.class, "BP");
         imu = OpModeReference.hardwareMap.get(BNO055IMU.class, "imu");
 
         // initialize the IMU
@@ -124,6 +126,7 @@ public class RhapsodyTheRobot
         AllMotors[3] = MR;
         AllMotors[4] = BL;
         AllMotors[5] = BR;
+        AllMotors[6] = BP;
 
         // set the direction for all left, then all right motors
         for (DcMotor m : LeftMotors)
@@ -163,6 +166,36 @@ public class RhapsodyTheRobot
                 r.setPower(0.5 * rightspeed);
         }
     }
+
+    public void bbAscend() {
+    // Ensure that the opmode is still active
+    if (OpModeReference.opModeIsActive()) {
+
+        // reset ticks to 0 on all motors
+        BP.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // set target position on all motors
+        // mode must be changed to RUN_TO_POSITION
+        BP.setTargetPosition(10752);
+        BP.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        // turn all motors on!
+        BP.setPower(1);
+
+        // just keep looping while both motors are busy
+        // stop if driver station stop button pushed
+        while (OpModeReference.opModeIsActive() && BP.isBusy()) {
+            OpModeReference.telemetry.update();
+        }
+
+        // once all motors get to where they need to be, turn them off
+        StopDriving();
+
+        // set motors back to RUN_USING_ENCODERS
+        BP.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+}
     // this is a drive method - takes speed and inches
     // WARNING: YOU WILL NEED TO IMPLEMENT REVERSE
     public void drive(double speed, double inches) {
@@ -184,7 +217,9 @@ public class RhapsodyTheRobot
             }
 
             // turn all motors on!
-            for (DcMotor m : AllMotors)
+            for (DcMotor m : LeftMotors)
+                m.setPower(speed);
+            for (DcMotor m : RightMotors)
                 m.setPower(speed);
 
             // just keep looping while both motors are busy

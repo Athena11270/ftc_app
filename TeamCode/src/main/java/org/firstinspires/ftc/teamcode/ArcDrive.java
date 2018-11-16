@@ -31,11 +31,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Tank Drive", group="Linear Opmode")
-public class Minion2 extends LinearOpMode {
+@TeleOp(name="Arcade Drive", group="Linear Opmode")
+public class ArcDrive extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -50,7 +50,10 @@ public class Minion2 extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-        rhaps.motorspeed(-gamepad1.right_stick_y, -gamepad1.left_stick_y,gamepad1.left_bumper,gamepad1.right_bumper);
+            double Lefto = Range.clip(gamepad1.right_stick_y - gamepad1.right_stick_x, -1,1);
+            double Righto = Range.clip(gamepad1.right_stick_y + gamepad1.right_stick_x, -1,1);
+            rhaps.motorspeed(-Lefto, -Righto,gamepad1.left_bumper,gamepad1.right_bumper);
+            rhaps.BP.setPower(gamepad1.left_stick_y);
         }
 
             // Show the elapsed game time and wheel power.

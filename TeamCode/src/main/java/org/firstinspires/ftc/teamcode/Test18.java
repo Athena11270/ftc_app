@@ -29,33 +29,48 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Tank Drive", group="Linear Opmode")
-public class Minion2 extends LinearOpMode {
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
-    // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
+/**
+ * This is an OpMode that uses a hardware robot class
+ */
+@Autonomous(name = "Test 18", group = "IMU1")
+public class Test18 extends LinearOpMode {
+
+    // this is the motor power so when you make changes you can just make here
+    // feel free to define multiple like FULL_POWER, HALF_POWER, etc.
+    static final double DRIVE_SPEED = 0.3;
 
     @Override
     public void runOpMode() {
+
+        // -------------------------------------------------------------------------------
+        // create an instance of the hardware robot class, pass an instance of THIS OpMode
         RhapsodyTheRobot rhaps = new RhapsodyTheRobot(this);
+
+        // call the initialization method
         rhaps.Initialize();
 
+        // -------------------------------------------------------------------------------
+        // Wait until the start button is clicked!
         waitForStart();
-        runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
-        rhaps.motorspeed(-gamepad1.right_stick_y, -gamepad1.left_stick_y,gamepad1.left_bumper,gamepad1.right_bumper);
-        }
+        // -------------------------------------------------------------------------------
+        // Start the logging of measured acceleration
+        rhaps.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
-            // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Becky-Betsy Position", rhaps.BP.getCurrentPosition());
-            telemetry.update();
-        }
+        // -------------------------------------------------------------------------------
+        // now do all of your driving and claiming depots and getting off landers or whatever
+        // sleeps are not required
+        // -------------------------------------------------------------------------------
+
+        //drive forward to just before sample resources
+        rhaps.bbAscend();
+
+        rhaps.StopDriving();
+    }
 }
