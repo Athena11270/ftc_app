@@ -29,37 +29,62 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Arcadie Drive", group="Linear Opmode")
-public class Minion2 extends LinearOpMode {
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
-    // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
+/**
+ * This is an OpMode that uses a hardware robot class
+ */
+@Autonomous(name = "Depot_YesElements", group = "IMU1")
+public class Depot_YesElements extends LinearOpMode {
+
+    // this is the motor power so when you make changes you can just make here
+    // feel free to define multiple like FULL_POWER, HALF_POWER, etc.
+    static final double DRIVE_SPEED = 0.3;
 
     @Override
     public void runOpMode() {
+
+        // -------------------------------------------------------------------------------
+        // create an instance of the hardware robot class, pass an instance of THIS OpMode
         RhapsodyTheRobot rhaps = new RhapsodyTheRobot(this);
+
+        // call the initialization method
         rhaps.Initialize();
 
+        // -------------------------------------------------------------------------------
+        // Wait until the start button is clicked!
         waitForStart();
-        runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
-            double Lefto = Range.clip(gamepad1.right_stick_y - gamepad1.right_stick_x, -1,1);
-            double Righto = Range.clip(gamepad1.right_stick_y + gamepad1.right_stick_x, -1,1);
-            rhaps.motorspeed(-Lefto, -Righto,gamepad1.left_bumper,gamepad1.right_bumper);
-            rhaps.Bigby.setPosition((gamepad1.left_stick_y + 1) / 2);
-        }
+        // -------------------------------------------------------------------------------
+        // Start the logging of measured acceleration
+        rhaps.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
+        // -------------------------------------------------------------------------------
+        // now do all of your driving and claiming depots and getting off landers or whatever
+        // sleeps are not required
+        // -------------------------------------------------------------------------------
 
-        // Show the elapsed game time and wheel power.
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Edmond Position", (gamepad1.left_stick_y + 1) / 2);
-        telemetry.update();
+        //drive forward to just before sample resources
+        rhaps.drive(0.25,48);
+
+        //Deposit the lad
+        rhaps.BigbyRetract();
+        sleep(1000);
+
+        //Retract Ladmond
+        rhaps.BigbyPush();
+        sleep(1000);
+
+        //turn around
+        rhaps.turn(130,0.25);
+
+        //go until wheel touches crater side
+        rhaps.drive(0.25,70);
+
+        rhaps.StopDriving();
     }
 }

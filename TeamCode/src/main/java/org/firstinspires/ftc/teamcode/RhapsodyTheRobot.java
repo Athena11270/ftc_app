@@ -32,7 +32,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -59,6 +61,7 @@ public class RhapsodyTheRobot
     public DcMotor BL = null;
     public DcMotor BR = null;
     public DcMotor BP = null;
+    public Servo Bigby = null;
 
     // create arrays for your motors (change sizes to match YOUR number of motors)
     public DcMotor[] LeftMotors = new DcMotor[3];
@@ -105,6 +108,7 @@ public class RhapsodyTheRobot
         BL = OpModeReference.hardwareMap.get(DcMotor.class, "BL");
         BR = OpModeReference.hardwareMap.get(DcMotor.class, "BR");
         BP = OpModeReference.hardwareMap.get(DcMotor.class, "BP");
+        Bigby = OpModeReference.hardwareMap.get(Servo.class, "Bigby");
         imu = OpModeReference.hardwareMap.get(BNO055IMU.class, "imu");
 
         // initialize the IMU
@@ -264,7 +268,15 @@ public class RhapsodyTheRobot
 
         return angleDifference;
     }
-
+    public void BigbyPush() {
+        Bigby.setPosition(0.7);
+    }
+    public void BigbyRetract() {
+        Bigby.setPosition(0);
+    }
+    public void BigbyPos(double position) {
+        Bigby.setPosition(position);
+    }
     // This method makes the robot turn.
     // DO NOT try to turn more than 180 degrees in either direction
     // targetAngleDifference is the number of degrees you want to turn

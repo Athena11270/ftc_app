@@ -39,6 +39,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+@Disabled
 @Autonomous(name="No Marker Left", group="Linear Opmode")
 public class NoMarkerLeftAuto extends LinearOpMode {
 
