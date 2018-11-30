@@ -33,8 +33,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Arcade Drive", group="Linear Opmode")
-public class ArcDrive extends LinearOpMode {
+@TeleOp(name="POV Drive", group="Linear Opmode")
+public class POVDrive extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -49,8 +49,8 @@ public class ArcDrive extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            double Lefto = Range.clip(gamepad1.right_stick_y - gamepad1.right_stick_x, -1,1);
-            double Righto = Range.clip(gamepad1.right_stick_y + gamepad1.right_stick_x, -1,1);
+            double Lefto = Range.clip(gamepad1.left_stick_y - gamepad1.right_stick_x, -1,1);
+            double Righto = Range.clip(gamepad1.left_stick_y + gamepad1.right_stick_x, -1,1);
             rhaps.motorspeed(-Lefto, -Righto,gamepad1.left_bumper,gamepad1.right_bumper);
             rhaps.BP.setPower(gamepad2.left_stick_y);
         }

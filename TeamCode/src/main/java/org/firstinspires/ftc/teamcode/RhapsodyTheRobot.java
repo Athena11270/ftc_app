@@ -66,7 +66,7 @@ public class RhapsodyTheRobot
     // create arrays for your motors (change sizes to match YOUR number of motors)
     public DcMotor[] LeftMotors = new DcMotor[3];
     public DcMotor[] RightMotors = new DcMotor[3];
-    public DcMotor[] AllMotors = new DcMotor[7];
+    public DcMotor[] AllMotors = new DcMotor[6];
 
     // you will need a reference to your OpMode
     private LinearOpMode OpModeReference;
@@ -130,7 +130,6 @@ public class RhapsodyTheRobot
         AllMotors[3] = MR;
         AllMotors[4] = BL;
         AllMotors[5] = BR;
-        AllMotors[6] = BP;
 
         // set the direction for all left, then all right motors
         for (DcMotor m : LeftMotors)
