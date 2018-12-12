@@ -268,10 +268,16 @@ public class RhapsodyTheRobot
         return angleDifference;
     }
     public void BigbyPush() {
-        Bigby.setPosition(0.7);
+        Bigby.setPosition(-1);
     }
-    public void BigbyRetract() {
-        Bigby.setPosition(0);
+    public void BigbyRetract() { Bigby.setPosition(3.5);}
+    public void Ladmondify() {
+        BigbyRetract();
+        OpModeReference.sleep(1000);
+        BigbyPush();
+        OpModeReference.sleep(1000);
+        BigbyRetract();
+        OpModeReference.sleep(1000);
     }
     public void BigbyPos(double position) {
         Bigby.setPosition(position);

@@ -38,8 +38,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 /**
  * This is an OpMode that uses a hardware robot class
  */
-@Autonomous(name = "Crater_NoElements", group = "IMU1")
-public class Crater_NoElements extends LinearOpMode {
+@Autonomous(name = "BigbysHand", group = "IMU1")
+public class BigbysHand extends LinearOpMode {
 
     // this is the motor power so when you make changes you can just make here
     // feel free to define multiple like FULL_POWER, HALF_POWER, etc.
@@ -59,36 +59,8 @@ public class Crater_NoElements extends LinearOpMode {
         // Wait until the start button is clicked!
         waitForStart();
 
-        // -------------------------------------------------------------------------------
-        // Start the logging of measured acceleration
-        rhaps.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
-
-        // -------------------------------------------------------------------------------
-        // now do all of your driving and claiming depots and getting off landers or whatever
-        // sleeps are not required
-        // -------------------------------------------------------------------------------
-
-        //drive forward to just before sample resources
-        rhaps.drive(0.3,16.5);
-
-        //turn 90 degrees counterclockwise
-        rhaps.turn(85,0.3);
-
-        //drive forward to center-ish region of side bit
-        rhaps.drive(0.3,49.5);
-
-        //turn left a little
-        rhaps.turn(40,0.3);
-
-        //go to the depot
-        rhaps.drive(0.3,35);
-
-        //turn around
-        rhaps.turn(175,0.3);
-
-        //go to the crater
-        rhaps.drive(0.3,70);
-
+        //Deposit the lad
+        rhaps.Ladmondify();
 
         rhaps.StopDriving();
     }

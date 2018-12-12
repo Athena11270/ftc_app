@@ -68,18 +68,13 @@ public class Depot_YesElements extends LinearOpMode {
         // sleeps are not required
         // -------------------------------------------------------------------------------
 
-        //drive forward to just before sample resources
+        //drive forward through sample resources
         rhaps.drive(0.25,48);
 
         //Deposit the lad
-        rhaps.BigbyRetract();
-        sleep(1000);
+        rhaps.Ladmondify();
 
-        //Retract Ladmond
-        rhaps.BigbyPush();
-        sleep(1000);
-
-        //turn around
+        //turn left 130 degrees
         rhaps.turn(130,0.25);
 
         //go until wheel touches crater side
