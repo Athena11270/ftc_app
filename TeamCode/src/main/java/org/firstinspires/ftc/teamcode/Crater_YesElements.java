@@ -61,7 +61,7 @@ public class Crater_YesElements extends LinearOpMode {
 
         // -------------------------------------------------------------------------------
         // Start the logging of measured acceleration
-        rhaps.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+        //rhaps.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
         // -------------------------------------------------------------------------------
         // now do all of your driving and claiming depots and getting off landers or whatever
@@ -90,7 +90,7 @@ public class Crater_YesElements extends LinearOpMode {
         rhaps.turn(175,0.25);
 
         //go until wheel touches crater side
-        rhaps.drive(0.25,60);
+        rhaps.drive(0.25,69);
 
         rhaps.StopDriving();
     }

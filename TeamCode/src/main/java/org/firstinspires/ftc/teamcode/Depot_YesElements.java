@@ -61,7 +61,7 @@ public class Depot_YesElements extends LinearOpMode {
 
         // -------------------------------------------------------------------------------
         // Start the logging of measured acceleration
-        rhaps.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+        //rhaps.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
         // -------------------------------------------------------------------------------
         // now do all of your driving and claiming depots and getting off landers or whatever
