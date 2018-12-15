@@ -69,7 +69,7 @@ public class Crater_YesElements extends LinearOpMode {
         // -------------------------------------------------------------------------------
 
         //drive forward to just before sample resources
-        rhaps.drive(0.25,12.5);
+        rhaps.drive(0.25,13.5);
 
         //turn 90 degrees counterclockwise
         rhaps.turn(85,0.25);
@@ -83,19 +83,14 @@ public class Crater_YesElements extends LinearOpMode {
         //go to depot
         rhaps.drive(0.25,32.5);
 
-        //Deposit the lad
-        rhaps.BigbyRetract();
-        sleep(1000);
-
-        //Retract Ladmond
-        rhaps.BigbyPush();
-        sleep(1000);
+        //Ladmondify
+        rhaps.Ladmondify();
 
         //turn around
         rhaps.turn(175,0.25);
 
         //go until wheel touches crater side
-        rhaps.drive(0.25,70);
+        rhaps.drive(0.25,60);
 
         rhaps.StopDriving();
     }

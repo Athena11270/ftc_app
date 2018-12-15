@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
@@ -38,6 +39,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 /**
  * This is an OpMode that uses a hardware robot class
  */
+@Disabled
 @Autonomous(name = "BigbysHand", group = "IMU1")
 public class BigbysHand extends LinearOpMode {
 

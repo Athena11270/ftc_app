@@ -58,7 +58,7 @@ public class ArcDrive extends LinearOpMode {
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Becky-Betsy Position", rhaps.BP.getCurrentPosition());
+            //telemetry.addData("Becky-Betsy Position", rhaps.BP.getCurrentPosition());
             telemetry.update();
         }
 }
