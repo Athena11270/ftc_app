@@ -72,8 +72,8 @@ public class RhapsodyTheRobot
     private LinearOpMode OpModeReference;
 
     // define and calculate constants...
-    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // REV Hex HD 40:1
-    static final double     WHEEL_DIAMETER_INCHES   = 4;     // For figuring circumference
+    static final double     COUNTS_PER_MOTOR_REV    = 560 ;    // REV Hex HD 20:1
+    static final double     WHEEL_DIAMETER_INCHES   = 3.54331;     // For figuring circumference
     static final double     WHEEL_CIRCUMFERENCE_INCHES = WHEEL_DIAMETER_INCHES * Math.PI;
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV  / WHEEL_CIRCUMFERENCE_INCHES);
 
