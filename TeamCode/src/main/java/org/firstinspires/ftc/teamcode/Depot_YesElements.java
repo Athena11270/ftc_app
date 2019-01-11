@@ -69,13 +69,13 @@ public class Depot_YesElements extends LinearOpMode {
         // -------------------------------------------------------------------------------
 
         //drive forward through sample resources
-        rhaps.drive(0.25,48);
+        rhaps.drive(0.25,53);
 
         //Deposit the lad
-        rhaps.Ladmondify();
+        rhaps.LadmondifyDepot();
 
         //turn left 130 degrees
-        rhaps.turn(130,0.25);
+        rhaps.turn(120,0.1);
 
         //go until wheel touches crater side
         rhaps.drive(0.25,70);

@@ -43,7 +43,8 @@ public class Crater_YesElements extends LinearOpMode {
 
     // this is the motor power so when you make changes you can just make here
     // feel free to define multiple like FULL_POWER, HALF_POWER, etc.
-    static final double DRIVE_SPEED = 0.3;
+    static final double DRIVE_SPEED = 0.25;
+    static final double TURN_SPEED = 0.1;
 
     @Override
     public void runOpMode() {
@@ -69,28 +70,29 @@ public class Crater_YesElements extends LinearOpMode {
         // -------------------------------------------------------------------------------
 
         //drive forward to just before sample resources
-        rhaps.drive(0.25,13.5);
+        rhaps.drive(DRIVE_SPEED,15);
 
         //turn 90 degrees counterclockwise
-        rhaps.turn(85,0.25);
+        rhaps.turn(90,TURN_SPEED);
 
         //go forward
-        rhaps.drive(0.25,42.5);
+        rhaps.drive(DRIVE_SPEED,48.3);
 
         //turn left a little
-        rhaps.turn(45,0.25);
+        rhaps.turn(40,TURN_SPEED);
 
         //go to depot
-        rhaps.drive(0.25,32.5);
+        rhaps.drive(DRIVE_SPEED,36);
 
         //Ladmondify
-        rhaps.Ladmondify();
+        rhaps.LadmondifyCrater();
 
         //turn around
-        rhaps.turn(175,0.25);
+        rhaps.turn(170,TURN_SPEED);
 
         //go until wheel touches crater side
-        rhaps.drive(0.25,69);
+        rhaps.drive(DRIVE_SPEED,70);
+
 
         rhaps.StopDriving();
     }

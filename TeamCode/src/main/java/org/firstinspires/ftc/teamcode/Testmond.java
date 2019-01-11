@@ -26,38 +26,38 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Tank Drive", group="Linear Opmode")
-public class TankDrive extends LinearOpMode {
+/**
+ * This is an OpMode that uses a hardware robot class
+ */
+@Autonomous(name = "Testmond (DO NOT USE!!!)", group = "IMU1")
+public class Testmond extends LinearOpMode {
 
-    // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
+    // this is the motor power so when you make changes you can just make here
+    // feel free to define multiple like FULL_POWER, HALF_POWER, etc.
+    static final double DRIVE_SPEED = 0.3;
 
     @Override
     public void runOpMode() {
+
+        // -------------------------------------------------------------------------------
+        // create an instance of the hardware robot class, pass an instance of THIS OpMode
         RhapsodyTheRobot rhaps = new RhapsodyTheRobot(this);
+
+        // call the initialization method
         rhaps.Initialize();
 
+        // -------------------------------------------------------------------------------
+        // Wait until the start button is clicked!
         waitForStart();
-        runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
-            rhaps.motorspeed(-gamepad1.left_stick_y,-gamepad1.right_stick_y,gamepad1.left_bumper,gamepad1.right_bumper);
-            rhaps.BP.setPower(gamepad2.left_stick_y);
-            rhaps.ColorGood();
-        }
+        //Ladmondify
+        rhaps.LadmondifyDepot();
 
-
-            // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            //telemetry.addData("Becky-Betsy Position", rhaps.BP.getCurrentPosition());
-            telemetry.update();
-        }
+    }
 }

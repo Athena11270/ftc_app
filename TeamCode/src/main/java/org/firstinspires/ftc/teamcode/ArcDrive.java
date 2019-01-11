@@ -49,6 +49,7 @@ public class ArcDrive extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            rhaps.ColorGood();
             double Lefto = Range.clip(gamepad1.right_stick_y - gamepad1.right_stick_x, -1,1);
             double Righto = Range.clip(gamepad1.right_stick_y + gamepad1.right_stick_x, -1,1);
             rhaps.motorspeed(-Lefto, -Righto,gamepad1.left_bumper,gamepad1.right_bumper);

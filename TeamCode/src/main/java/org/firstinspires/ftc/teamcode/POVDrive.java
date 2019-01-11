@@ -53,6 +53,7 @@ public class POVDrive extends LinearOpMode {
             double Righto = Range.clip(gamepad1.left_stick_y + gamepad1.right_stick_x, -1,1);
             rhaps.motorspeed(-Lefto, -Righto,gamepad1.left_bumper,gamepad1.right_bumper);
             rhaps.BP.setPower(gamepad2.left_stick_y);
+            rhaps.ColorGood();
         }
 
 

@@ -31,15 +31,18 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 /**
  * This is NOT an opmode.
@@ -71,6 +74,15 @@ public class RhapsodyTheRobot
     // you will need a reference to your OpMode
     private LinearOpMode OpModeReference;
 
+    //Blinkin stuff.  DO NOT TOUCH!!!
+    RevBlinkinLedDriver blinkinLedDriver;
+    RevBlinkinLedDriver.BlinkinPattern pattern;
+    Telemetry.Item patternName;
+    Telemetry.Item display;
+    SampleRevBlinkinLedDriver.DisplayKind displayKind;
+    Deadline ledCycleDeadline;
+    Deadline gamepadRateLimit;
+
     // define and calculate constants...
     static final double     COUNTS_PER_MOTOR_REV    = 560 ;    // REV Hex HD 20:1
     static final double     WHEEL_DIAMETER_INCHES   = 3.54331;     // For figuring circumference
@@ -98,7 +110,10 @@ public class RhapsodyTheRobot
         //parameters.loggingEnabled      = true;
         //parameters.loggingTag          = "IMU";
         //parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
+        blinkinLedDriver = OpModeReference.hardwareMap.get(RevBlinkinLedDriver.class, "Blinko");
+        pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
+        blinkinLedDriver.setPattern(pattern);
+        blinkinLedDriver = OpModeReference.hardwareMap.get(RevBlinkinLedDriver.class, "Blinko");
         // get all your hardware from the hardware map
         // defined in the config on your robot controller phone.
         FL = OpModeReference.hardwareMap.get(DcMotor.class, "FL");
@@ -148,6 +163,17 @@ public class RhapsodyTheRobot
     public void StopDriving() {
         for (DcMotor m : AllMotors)
             m.setPower(0);
+    }
+    public void ColorGood(){
+        if (OpModeReference.gamepad2.b == true) {
+            blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_LAVA_PALETTE);
+        }
+        else if (OpModeReference.gamepad2.right_bumper == true){
+            blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
+        }
+        else{
+            blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_2_BEATS_PER_MINUTE);
+        }
     }
     public void motorspeed (double leftspeed, double rightspeed, boolean slowcondition, boolean fastcondition) {
         if (fastcondition) {
@@ -221,9 +247,9 @@ public class RhapsodyTheRobot
 
             // turn all motors on!
             for (DcMotor m : LeftMotors)
-                m.setPower(speed);
+                m.setPower(speed/2);
             for (DcMotor m : RightMotors)
-                m.setPower(speed);
+                m.setPower(speed/2);
 
             // just keep looping while both motors are busy
             // stop if driver station stop button pushed
@@ -267,16 +293,31 @@ public class RhapsodyTheRobot
 
         return angleDifference;
     }
-    public void BigbyPush() {
-        Bigby.setPosition(-1);
+    public void BigbyAscend() {
+        Bigby.setPosition(-0.75);
     }
-    public void BigbyRetract() { Bigby.setPosition(3.5);}
-    public void Ladmondify() {
-        BigbyRetract();
+    public void BigbyDescend() { Bigby.setPosition(
+            +3.25);}
+    public void LadmondifyDepot() {
+        BigbyAscend();
         OpModeReference.sleep(1000);
-        BigbyPush();
+        BigbyDescend();
         OpModeReference.sleep(1000);
-        BigbyRetract();
+        turn(15,0.15);
+        OpModeReference.sleep(1000);
+        BigbyAscend();
+        turn(-15,0.15);
+        OpModeReference.sleep(1000);
+    }
+    public void LadmondifyCrater() {
+        BigbyAscend();
+        OpModeReference.sleep(1000);
+        BigbyDescend();
+        OpModeReference.sleep(1000);
+        turn(-15,0.15);
+        OpModeReference.sleep(1000);
+        BigbyAscend();
+        turn(15,0.15);
         OpModeReference.sleep(1000);
     }
     public void BigbyPos(double position) {
@@ -300,9 +341,9 @@ public class RhapsodyTheRobot
         if (targetAngleDifference < 0) {
             // turning right, so we want all right motors going backwards
             for (DcMotor m : RightMotors)
-                m.setPower(-power);
+                m.setPower(-power/2);
             for (DcMotor m : LeftMotors)
-                m.setPower(power);
+                m.setPower(power/2);
             // sleep a tenth of a second
             // WARNING - not sure why this is needed - but sometimes right turns didn't work without
             OpModeReference.sleep(100);

@@ -62,7 +62,7 @@ public class BigbysHand extends LinearOpMode {
         waitForStart();
 
         //Deposit the lad
-        rhaps.Ladmondify();
+        rhaps.LadmondifyDepot();
 
         rhaps.StopDriving();
     }
