@@ -49,9 +49,10 @@ public class TankDrive extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            rhaps.DIP();
+            rhaps.ColorGood();
             rhaps.motorspeed(-gamepad1.left_stick_y,-gamepad1.right_stick_y,gamepad1.left_bumper,gamepad1.right_bumper);
             rhaps.BP.setPower(gamepad2.left_stick_y);
-            rhaps.ColorGood();
         }
 
 

@@ -33,6 +33,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -64,7 +65,10 @@ public class RhapsodyTheRobot
     public DcMotor BL = null;
     public DcMotor BR = null;
     public DcMotor BP = null;
+    public DcMotor LI = null;
     public Servo Bigby = null;
+    public CRServo PB = null;
+    public CRServo SB = null;
 
     // create arrays for your motors (change sizes to match YOUR number of motors)
     public DcMotor[] LeftMotors = new DcMotor[3];
@@ -111,7 +115,7 @@ public class RhapsodyTheRobot
         //parameters.loggingTag          = "IMU";
         //parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
         blinkinLedDriver = OpModeReference.hardwareMap.get(RevBlinkinLedDriver.class, "Blinko");
-        pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
+        pattern = RevBlinkinLedDriver.BlinkinPattern.CP1_2_SINELON;
         blinkinLedDriver.setPattern(pattern);
         blinkinLedDriver = OpModeReference.hardwareMap.get(RevBlinkinLedDriver.class, "Blinko");
         // get all your hardware from the hardware map
@@ -123,7 +127,10 @@ public class RhapsodyTheRobot
         BL = OpModeReference.hardwareMap.get(DcMotor.class, "BL");
         BR = OpModeReference.hardwareMap.get(DcMotor.class, "BR");
         BP = OpModeReference.hardwareMap.get(DcMotor.class, "BP");
+        LI = OpModeReference.hardwareMap.get(DcMotor.class, "LI");
         Bigby = OpModeReference.hardwareMap.get(Servo.class, "Bigby");
+        PB = OpModeReference.hardwareMap.get(CRServo.class,"PB");
+        SB = OpModeReference.hardwareMap.get(CRServo.class,"SB");
         imu = OpModeReference.hardwareMap.get(BNO055IMU.class, "imu");
 
         // initialize the IMU
@@ -163,6 +170,20 @@ public class RhapsodyTheRobot
     public void StopDriving() {
         for (DcMotor m : AllMotors)
             m.setPower(0);
+    }
+    public void DIP() {
+        LI.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        if (OpModeReference.gamepad2.dpad_up) {
+            LI.setPower(1);
+        }
+        else if (OpModeReference.gamepad2.dpad_up) {
+            LI.setPower(-1);
+        }
+        else{
+            LI.setPower(0);
+        }
+            PB.setPower(OpModeReference.gamepad2.right_stick_y);
+            SB.setPower(OpModeReference.gamepad2.left_trigger-OpModeReference.gamepad2.right_trigger);
     }
     public void ColorGood(){
         if (OpModeReference.gamepad2.b == true) {
